@@ -95,14 +95,4 @@
     });
 
 })(jQuery);
-
-
-
-window.onloadTurnstileCallback = function () {
-  turnstile.render("#myWidget", {
-    sitekey: "<YOUR_SITE_KEY>",
-    callback: function (token) {
-      console.log(`Challenge Success ${token}`);
-    },
-  });
-};
+  

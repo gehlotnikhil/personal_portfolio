@@ -21,14 +21,47 @@
   <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <script defer src="/_vercel/insights/script.js"></script>
-  <script
-  src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
-  defer
-></script>
+  
+<script>
+   function showMainContent() {
+         document.querySelector(".entire-main").style.display = "block";
+        document.getElementById("myWidget").style.display = "none";
+    }
+
+window.onloadTurnstileCallback = function () {
+        if (localStorage.getItem("isVerified") === "true") {
+        showMainContent(); // Already verified
+        return;
+      }
+  turnstile.render("#myWidget", {
+    sitekey: "0x4AAAAAABnwij48UU8tu5IM",
+    theme: "dark",
+    callback: function (token) {
+      setTimeout(function () {
+        localStorage.setItem("isVerified", "true"); 
+        document.querySelector(".entire-main").style.display = "block";
+        document.getElementById("myWidget").style.display = "none";
+      }, 2000);
+    }
+  });
+};
+
+</script>
+  <script  src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" async defer></script>
 
 
   <link href="css/styles.css" rel="stylesheet">
   <style>
+    #myWidget {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .entire-main {
+      display: none;
+    }
+
     .button {
       display: inline-block;
       padding: 15px 25px;
@@ -60,326 +93,416 @@
     .preplaced {
       background-color: rgb(121, 241, 121)
     }
+
+
+
+
+     #myWidget, .entire-main {
+      display: none;
+    }
+
+    #myWidget.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .logo::before {
+      content: "⌀";
+      margin-right: 8px;
+      font-size: 1.8rem;
+    }
+
+    .subtext {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+    }
+
+    .turnstile-container {
+      margin-bottom: 25px;
+    }
+
+    .info-text {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85rem;
+      color: #888;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #aaa;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content placeholder */
+    .entire-main {
+      display: none;
+    }
+
+     #myWidget {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0e0e0e;
+      color: #f5f5f5;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      flex-direction: column;
+    }
+    .subtext {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    #myWidget {
+      margin-bottom: 2rem;
+    }
+    
   </style>
 </head>
 
 <body>
-   <!-- Turnstile Widget -->
-    <div class="cf-turnstile"
-         data-sitekey="0x4AAAAAABnwij48UU8tu5IM"
-         data-callback="onTurnstileSuccess">
-    </div>
 
-  <div id="mobile-menu-open" class="shadow-large">
-    <i class="fa fa-bars" aria-hidden="true"></i>
-  </div>
-  <!-- End #mobile-menu-toggle -->
-  <header>
-    <div id="mobile-menu-close">
-      <span>Close</span> <i class="fa fa-times" aria-hidden="true"></i>
-    </div>
-    <ul id="menu" class="shadow">
-      <li>
-        <a href="#about">About</a>
-      </li>
-      <li>
-        <a href="#education">Education</a>
-      </li>
-      <li>
-        <a href="#experience">Experience</a>
-      </li>
-      <li>
-        <a href="#projects">Projects</a>
-      </li>
-      <li>
-        <a href="#skills">Skills</a>
-      </li>
-      <li>
-        <a href="#programming">Programming</a>
-      </li>
-      <li>
-        <a href="#contact">Contact</a>
-      </li>
-    </ul>
-  </header>
-  <!-- End header -->
 
-  <div id="lead">
-    <div id="lead-content">
-      <table>
-        <tr>
-          <td>
-            <img style="border-radius: 50%;width: 200px;height: 200px;" src="./p_images/photo1.jpg"></img>
-          </td>
-          <td>
-            <h1 id="name">
-              Nikhil Gehlot
-            </h1>
-            <h2 id="bio">
-              Full Stack Developer | MERN Stack
-            </h2>
-            <a target="_blank" href="https://drive.google.com/file/d/1juWSDyoUq3d5MOYzEEUGHo4muxeuHxXg/view?usp=sharing"
-              class="btn-rounded-white">View Resume</a>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <!-- End #lead-content -->
 
-    <div id="lead-overlay"></div>
-
-    <div id="lead-down">
-      <span>
-        <i class="fa fa-chevron-down" aria-hidden="true"></i>
-      </span>
-    </div>
-    <!-- End #lead-down -->
-  </div>
-  <!-- End #lead -->
-
-  <div id="about">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <h2 class="heading">About Me</h2>
+    <div id="myWidget" class="active">
+        <div class="widget-container">
+            <div class="logo">portfolio.100xstack.com</div>
+            <div class="subtext">Verifying you are human. This may take a few seconds.</div>
+            
+            <div class="turnstile-container">
+                <div id="cf-turnstile-widget"></div>
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+            
+            <div class="info-text">
+                100xstack.com needs to review the security of your connection before proceeding.
+            </div>
         </div>
-        <div class="col-md-8">
-          <p>
-            I'm a Master's degree holder in Computer Science from R.J. College, passionate about building practical,
-            user-focused solutions.
-            Eager to apply my skills in real-world projects and contribute to impactful work in the IT industry.
-            <br><br>
-            ★ Strong problem-solving skills, attention to detail, and a collaborative mindset.
-          </p>
+        
+        <div class="footer">
+            Ray ID: <span id="rayid">abc123ef456gh789</span><br>
+            Performance & security by <a href="https://www.cloudflare.com" target="_blank">Cloudflare</a>
+        </div>
+    </div>
+    
+    
+    
+    <div class="entire-main">
+    <div id="mobile-menu-open" class="shadow-large">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </div>
+    <!-- End #mobile-menu-toggle -->
+    <header>
+      <div id="mobile-menu-close">
+        <span>Close</span> <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+      <ul id="menu" class="shadow">
+        <li>
+          <a href="#about">About</a>
+        </li>
+        <li>
+          <a href="#education">Education</a>
+        </li>
+        <li>
+          <a href="#experience">Experience</a>
+        </li>
+        <li>
+          <a href="#projects">Projects</a>
+        </li>
+        <li>
+          <a href="#skills">Skills</a>
+        </li>
+        <li>
+          <a href="#programming">Programming</a>
+        </li>
+        <li>
+          <a href="#contact">Contact</a>
+        </li>
+      </ul>
+    </header>
+    <!-- End header -->
+
+    <div id="lead">
+      <div id="lead-content">
+        <table>
+          <tr>
+            <td>
+              <img style="border-radius: 50%;width: 200px;height: 200px;" src="./p_images/photo1.jpg"></img>
+            </td>
+            <td>
+              <h1 id="name">
+                Nikhil Gehlot
+              </h1>
+              <h2 id="bio">
+                Full Stack Developer | MERN Stack
+              </h2>
+              <a target="_blank"
+                href="https://drive.google.com/file/d/1juWSDyoUq3d5MOYzEEUGHo4muxeuHxXg/view?usp=sharing"
+                class="btn-rounded-white">View Resume</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- End #lead-content -->
+
+      <div id="lead-overlay"></div>
+
+      <div id="lead-down">
+        <span>
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <!-- End #lead-down -->
+    </div>
+    <!-- End #lead -->
+
+    <div id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h2 class="heading">About Me</h2>
+          </div>
+          <div class="col-md-8">
+            <p>
+              I'm a Master's degree holder in Computer Science from R.J. College, passionate about building practical,
+              user-focused solutions.
+              Eager to apply my skills in real-world projects and contribute to impactful work in the IT industry.
+              <br><br>
+              ★ Strong problem-solving skills, attention to detail, and a collaborative mindset.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- End #about -->
+    <!-- End #about -->
 
-  <div id="education">
-    <h2 class="heading">Education</h2>
-    <div class="education-block">
-      <h3>Ramniranjan Jhunjhunwala College, Mumbai</h3>
-      <span class="education-date">July 2025 - Present</span>
-      <h4>Master's Degree in Computer Science</h4>
-    </div>
-    <div class="education-block">
-      <h3>Ramniranjan Jhunjhunwala College, Mumbai</h3>
-      <span class="education-date">July 2022 - April 2025</span>
-      <h4>Bachelor's Degree in Information Technology | CGPA: </h4>
-    </div>
-    <div class="education-block">
-      <h3>E. B. Madhavi Junior College, Mumbai</h3>
-      <span class="education-date">June 2021 - April 2022</span>
-      <h4>Class 12th - Percentage: 83.5%</h4>
-    </div>
-  </div>
-  <!-- End #education -->
-
-  <div id="experience">
-    <h2 class="heading">Experience</h2>
-    <div class="education-block">
-      <h3>Digital Rhombus Pvt Limited, Toronto, Canada (Remote)</h3>
-      <span class="education-date">Feb 2025 - April 2025</span>
-      <h4>Full Stack Developer Intern</h4>
-    </div>
-  </div>
-  <!-- End #experience -->
-
-
-  <div id="education" class="certifications">
-    <h2 class="heading">Certifications</h2>
-    <div class="certification-block">
-      <a target="_blank" href="https://moonshot.scaler.com/s/li/YJ8mSGz4Ro">
-        <img src="./p_images//javascript_certificate_from_scalar.png" title="" width="100" height="100" />
-      </a>
-      <a target="_blank" href="https://moonshot.scaler.com/s/li/iAVwn0HeLo">
-        <img src="./p_images//nodejs-certification.png" title="" width="100" height="100" />
-      </a>
-    </div>
-
-
-  </div>
-  <!-- End #certifications -->
-
-  <div id="projects" class="background-alt">
-    <h2 class="heading">Projects</h2>
-    <div class="container">
-      <div class="row">
-        <div class="project shadow-large">
-          <div class="project-image">
-<img class="project-img img-fluid rounded" src="./p_images/codedrop.png" />
-          </div>
-          <div class="project-info">
-            <h3>CodeDrop - Automated React Deployment Platform</h3>
-            <p>
-              Built an automated system that downloads React projects from user-submitted URLs, installs dependencies,
-              builds the static output, and stores it in Supabase buckets.
-              Each project is assigned a unique ID and served via wildcard subdomains like
-              <code>id.dev.100xstack.me</code> using a custom request handler service.
-              Enables users to deploy static websites instantly without GitHub or manual setup.
-            </p>
-            <p><strong>Tech Stack:</strong> Node.js, Express.js, Supabase, Redis</p>
-            <a target="_blank" href="https://github.com/gehlotnikhil/CodeDrop">View Project</a>
-          </div>
-
-        </div>
-        <div class="project shadow-large">
-          <div class="project-image">
-            <img class="project-img img-fluid rounded"  src="./p_images/code.png" />
-          </div>
-          <div class="project-info">
-            <h3>CodeGalaxy - The Coding Platform</h3>
-            <p>
-              Developed a competitive coding platform where users can solve coding problems and participate in 1.5-2
-              hour contests with real-time rankings.
-              Implemented a one-to-one compete feature and admin dashboard for managing contests and coding problems.
-              Integrated daily new problems to keep users engaged and enhance problem-solving skills.
-            </p>
-            <p><strong>Tech Stack:</strong> React.js, Redux Toolkit, Node.js, Express.js, MongoDB, Prisma, Bootstrap</p>
-            <a target="_blank" href="https://github.com/gehlotnikhil/codegalaxy">View Project</a>
-          </div>
-        </div>
-
-        <div class="project shadow-large">
-          <div class="project-image">
-            <img class="project-img img-fluid rounded"  src="./p_images/mymovie2.png" />
-          </div>
-          <div class="project-info">
-            <h3>OTT Platform</h3>`
-            <p>
-              Developed a Movie Platform using basic HTML, CSS, and JavaScript. Users can watch, search, and send
-              queries.
-              Features include watching videos by category (sports, serials, web series) and rating watched movies.
-            </p>
-            <a target="_blank" href="https://github.com/gehlotnikhil/MyMovie">View Project</a>
-          </div>
-        </div>
-
-        <h3><a target="_blank" href="https://github.com/gehlotnikhil">More Projects</a></h3>
+    <div id="education">
+      <h2 class="heading">Education</h2>
+      <div class="education-block">
+        <h3>Ramniranjan Jhunjhunwala College, Mumbai</h3>
+        <span class="education-date">July 2025 - Present</span>
+        <h4>Master's Degree in Computer Science</h4>
+      </div>
+      <div class="education-block">
+        <h3>Ramniranjan Jhunjhunwala College, Mumbai</h3>
+        <span class="education-date">July 2022 - April 2025</span>
+        <h4>Bachelor's Degree in Information Technology | CGPA: </h4>
+      </div>
+      <div class="education-block">
+        <h3>E. B. Madhavi Junior College, Mumbai</h3>
+        <span class="education-date">June 2021 - April 2022</span>
+        <h4>Class 12th - Percentage: 83.5%</h4>
       </div>
     </div>
-  </div>
-  <!-- End #projects -->
+    <!-- End #education -->
 
-  <div id="skills">
-    <h2 class="heading">Skills</h2>
-    <ul>
-      <li>React.js</li>
-      <li>Redux Toolkit</li>
-      <li>Node.js</li>
-      <li>Express.js</li>
-      <li>REST API</li>
-      <li>Prisma</li>
-      <li>MongoDB</li>
-      <li>MySQL</li>
-      <li>Redis</li>
-      <li>HTML5</li>
-      <li>CSS3</li>
-      <li>JavaScript</li>
-      <li>Bootstrap</li>
-      <li>Java</li>
-      <li>C++</li>
-      <li>Data Structures</li>
-      <li>Algorithms</li>
-      <li>Git</li>
-      <li>Docker</li>
-    </ul>
-  </div>
-  <!-- End #skills -->
-  </div>
-  <!-- End #skills -->
-  <div id="skills" class="Programming">
-    <h2 class="heading">Programming</h2>
-    <ul>
-      <li><a target="_blank" href="https://www.hackerrank.com/profile/gehlotnikhil38">Hacker Rank</a></li>
-      <li><a target="_blank" href="https://leetcode.com/u/gehlotnikhil38/">LeetCode</a></li>
-    </ul>
-  </div>
-
-
-  <!-- End #skills -->
-
-  <div id="contact">
-    <h2>Contact</h2>
-    <div id="web-profiles">
-
-      </br>
+    <div id="experience">
+      <h2 class="heading">Experience</h2>
+      <div class="education-block">
+        <h3>Digital Rhombus Pvt Limited, Toronto, Canada (Remote)</h3>
+        <span class="education-date">Feb 2025 - April 2025</span>
+        <h4>Full Stack Developer Intern</h4>
+      </div>
     </div>
-    <div id="contact-form">
-      <form action="https://formspree.io/f/xvgpoldz" method="POST">
-        <label>
-          Your email:
-          <input type="email" name="email">
-        </label>
-        <label>
-          Your message:
-          <textarea name="message"></textarea>
-        </label>
-        <button type="submit">Send</button>
-      </form>
-    </div>
-  </div>
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="social">
-          <ul>
-            <li>
-              <a href="https://github.com/gehlotnikhil" target="_blank"><i class="fa fa-github"
-                  aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/nikhilgehlot/" target="_blank"><i class="fa fa-linkedin"
-                  aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="https://www.instagram.com/_.nikhil_gehlot._/" target="_blank"><i class="fa fa-instagram"
-                  aria-hidden="true"></i></a>
-            </li>
+    <!-- End #experience -->
 
-          </ul>
-        </div>
-        <div class="top">
-          <span id="to-top">
-            <i class="fa fa-chevron-up" aria-hidden="true"></i>
-          </span>
+
+    <div id="education" class="certifications">
+      <h2 class="heading">Certifications</h2>
+      <div class="certification-block">
+        <a target="_blank" href="https://moonshot.scaler.com/s/li/YJ8mSGz4Ro">
+          <img src="./p_images//javascript_certificate_from_scalar.png" title="" width="100" height="100" />
+        </a>
+        <a target="_blank" href="https://moonshot.scaler.com/s/li/iAVwn0HeLo">
+          <img src="./p_images//nodejs-certification.png" title="" width="100" height="100" />
+        </a>
+      </div>
+
+
+    </div>
+    <!-- End #certifications -->
+
+    <div id="projects" class="background-alt">
+      <h2 class="heading">Projects</h2>
+      <div class="container">
+        <div class="row">
+          <div class="project shadow-large">
+            <div class="project-image">
+              <img class="project-img img-fluid rounded" src="./p_images/codedrop.png" />
+            </div>
+            <div class="project-info">
+              <h3>CodeDrop - Automated React Deployment Platform</h3>
+              <p>
+                Built an automated system that downloads React projects from user-submitted URLs, installs dependencies,
+                builds the static output, and stores it in Supabase buckets.
+                Each project is assigned a unique ID and served via wildcard subdomains like
+                <code>id.dev.100xstack.me</code> using a custom request handler service.
+                Enables users to deploy static websites instantly without GitHub or manual setup.
+              </p>
+              <p><strong>Tech Stack:</strong> Node.js, Express.js, Supabase, Redis</p>
+              <a target="_blank" href="https://github.com/gehlotnikhil/CodeDrop">View Project</a>
+            </div>
+
+          </div>
+          <div class="project shadow-large">
+            <div class="project-image">
+              <img class="project-img img-fluid rounded" src="./p_images/code.png" />
+            </div>
+            <div class="project-info">
+              <h3>CodeGalaxy - The Coding Platform</h3>
+              <p>
+                Developed a competitive coding platform where users can solve coding problems and participate in 1.5-2
+                hour contests with real-time rankings.
+                Implemented a one-to-one compete feature and admin dashboard for managing contests and coding problems.
+                Integrated daily new problems to keep users engaged and enhance problem-solving skills.
+              </p>
+              <p><strong>Tech Stack:</strong> React.js, Redux Toolkit, Node.js, Express.js, MongoDB, Prisma, Bootstrap
+              </p>
+              <a target="_blank" href="https://github.com/gehlotnikhil/codegalaxy">View Project</a>
+            </div>
+          </div>
+
+          <div class="project shadow-large">
+            <div class="project-image">
+              <img class="project-img img-fluid rounded" src="./p_images/mymovie2.png" />
+            </div>
+            <div class="project-info">
+              <h3>OTT Platform</h3>`
+              <p>
+                Developed a Movie Platform using basic HTML, CSS, and JavaScript. Users can watch, search, and send
+                queries.
+                Features include watching videos by category (sports, serials, web series) and rating watched movies.
+              </p>
+              <a target="_blank" href="https://github.com/gehlotnikhil/MyMovie">View Project</a>
+            </div>
+          </div>
+
+          <h3><a target="_blank" href="https://github.com/gehlotnikhil">More Projects</a></h3>
         </div>
       </div>
     </div>
-  </footer>
-  <!-- End footer -->
+    <!-- End #projects -->
+
+    <div id="skills">
+      <h2 class="heading">Skills</h2>
+      <ul>
+        <li>React.js</li>
+        <li>Redux Toolkit</li>
+        <li>Node.js</li>
+        <li>Express.js</li>
+        <li>REST API</li>
+        <li>Prisma</li>
+        <li>MongoDB</li>
+        <li>MySQL</li>
+        <li>Redis</li>
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>JavaScript</li>
+        <li>Bootstrap</li>
+        <li>Java</li>
+        <li>C++</li>
+        <li>Data Structures</li>
+        <li>Algorithms</li>
+        <li>Git</li>
+        <li>Docker</li>
+      </ul>
+    </div>
+    <!-- End #skills -->
+    <!-- End #skills -->
+    <div id="skills" class="Programming">
+      <h2 class="heading">Programming</h2>
+      <ul>
+        <li><a target="_blank" href="https://www.hackerrank.com/profile/gehlotnikhil38">Hacker Rank</a></li>
+        <li><a target="_blank" href="https://leetcode.com/u/gehlotnikhil38/">LeetCode</a></li>
+      </ul>
+    </div>
+
+
+    <!-- End #skills -->
+
+    <div id="contact">
+      <h2>Contact</h2>
+      <div id="web-profiles">
+
+        </br>
+      </div>
+      <div id="contact-form">
+        <form action="https://formspree.io/f/xvgpoldz" method="POST">
+          <label>
+            Your email:
+            <input type="email" name="email">
+          </label>
+          <label>
+            Your message:
+            <textarea name="message"></textarea>
+          </label>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="social">
+            <ul>
+              <li>
+                <a href="https://github.com/gehlotnikhil" target="_blank"><i class="fa fa-github"
+                    aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/nikhilgehlot/" target="_blank"><i class="fa fa-linkedin"
+                    aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/_.nikhil_gehlot._/" target="_blank"><i class="fa fa-instagram"
+                    aria-hidden="true"></i></a>
+              </li>
+
+            </ul>
+          </div>
+          <div class="top">
+            <span id="to-top">
+              <i class="fa fa-chevron-up" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End footer -->
+
+
+  </div>
 
 
 
 
 
 
-  
-
-  <script>
-    let turnstileToken = null;
-
-    function onTurnstileSuccess(token) {
-      console.log("Turnstile Token:", token);
-      turnstileToken = token;
-    }
-
-    document.getElementById("myForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      if (!turnstileToken) {
-        alert("Please complete the CAPTCHA.");
-        return;
-      }
-
-      alert("Form submitted successfully with token:\n" + turnstileToken);
-
-      // Normally you'd send this token to your backend like:
-      // fetch('/submit', { method: 'POST', body: JSON.stringify({ token: turnstileToken }) })
-    });
-  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="js/scripts.min.js"></script>
 
