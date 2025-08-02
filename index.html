@@ -1,27 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-
-<head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-845DD8EXLG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-845DD8EXLG');
-  </script>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nikhil Gehlot</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-  <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <script defer src="/_vercel/insights/script.js"></script>
   
+  <head>
+    <script  src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" async defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+
 <script>
    function showMainContent() {
          document.querySelector(".entire-main").style.display = "block";
@@ -37,18 +20,25 @@ window.onloadTurnstileCallback = function () {
     sitekey: "0x4AAAAAABnwij48UU8tu5IM",
     theme: "dark",
     callback: function (token) {
-      setTimeout(function () {
         localStorage.setItem("isVerified", "true"); 
-        document.querySelector(".entire-main").style.display = "block";
-        document.getElementById("myWidget").style.display = "none";
-      }, 2000);
+        showMainContent()
     }
   });
 };
 
 </script>
-  <script  src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" async defer></script>
+  
 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nikhil Gehlot</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script defer src="/_vercel/insights/script.js"></script>
+  
 
   <link href="css/styles.css" rel="stylesheet">
   <style>
